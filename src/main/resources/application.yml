@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: yupao-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/partner_matching?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  session:
+    timeout: 86400
+    store-type: redis
+  data:
+    redis:
+      host: localhost
+      password: 1234
+      database: 2
+      port: 6379
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        domain: localhost #防止前后端分离，前端多个端口不一致导致的session不是同一个问题
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.yupao
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 逻辑删除列
+      logic-delete-value: 1 # 删除值
+      logic-not-delete-value: 0 # 非删除值
